@@ -18,6 +18,12 @@ const fontSans = FontSans({
 
 export const metadata: Metadata = {
   title: "Go Schedule Tracker",
+  icons: [
+    {
+      rel: "icon",
+      url: "/logo.png",
+    },
+  ],
 };
 
 export default async function RootLayout({
