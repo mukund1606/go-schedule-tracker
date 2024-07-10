@@ -1,0 +1,8 @@
+{
+  "scope": "/",
+  "start_url": "/",
+  "name": "Go Schedule Tracker",
+  "short_name": "GoST",
+  "display": "fullScreen",
+  "description": "Helps in keeping tack of Go Classes Schedule."
+}

@@ -18,6 +18,9 @@ const fontSans = FontSans({
 
 export const metadata: Metadata = {
   title: "Go Schedule Tracker",
+  manifest: "/manifest.json",
+  authors: [{ name: "Mukund Mittal", url: "https://www.mukund.page" }],
+  creator: "Mukund Mittal",
   icons: [
     {
       rel: "icon",
