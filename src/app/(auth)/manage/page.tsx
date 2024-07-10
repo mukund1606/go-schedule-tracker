@@ -133,7 +133,7 @@ export default function Home() {
                           setCalendarDate(d);
                         }
                       }}
-                      initialFocus
+                      fixedWeeks
                     />
                   </PopoverContent>
                 </Popover>

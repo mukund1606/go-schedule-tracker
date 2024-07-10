@@ -139,6 +139,7 @@ export default function AddScheduleForm() {
                             field.onChange(dayjs(d).format("MMMM DD, YYYY"));
                           }
                         }}
+                        fixedWeeks
                       />
                     </PopoverContent>
                   </Popover>
