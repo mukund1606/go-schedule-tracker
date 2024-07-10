@@ -7,7 +7,7 @@ import {
   Controller,
   type ControllerProps,
   type FieldPath,
-  FieldValues,
+  type FieldValues,
   FormProvider,
   useFormContext,
 } from "react-hook-form";
