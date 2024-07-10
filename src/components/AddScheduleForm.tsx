@@ -47,7 +47,13 @@ export default function AddScheduleForm() {
     },
   });
 
-  const addScheduleRoute = api.schedule.addSchedule.useMutation();
+  const apiUtils = api.useUtils();
+  const addScheduleRoute = api.schedule.addSchedule.useMutation({
+    async onSuccess() {
+      await apiUtils.schedule.getSchedule.invalidate();
+      await apiUtils.schedule.getAllSchedules.invalidate();
+    },
+  });
 
   async function onSubmit(data: z.infer<typeof CreateScheduleSchema>) {
     try {
