@@ -3,6 +3,6 @@
   "start_url": "/",
   "name": "Go Schedule Tracker",
   "short_name": "GoST",
-  "display": "fullScreen",
+  "display": "standalone",
   "description": "Helps in keeping tack of Go Classes Schedule."
 }
