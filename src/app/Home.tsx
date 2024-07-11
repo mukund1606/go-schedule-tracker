@@ -15,13 +15,7 @@ import { api } from "@/trpc/react";
 
 import dayjs from "dayjs";
 
-import {
-  CalendarIcon,
-  ChevronLeft,
-  ChevronRight,
-  PlusIcon,
-  TrashIcon,
-} from "lucide-react";
+import { CalendarIcon, ChevronLeft, ChevronRight } from "lucide-react";
 
 import {
   Card,
@@ -30,16 +24,8 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 
-import AddScheduleForm from "@/components/AddScheduleForm";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-
 import { quotes } from "@/data/quotes";
+import ClipLoader from "react-spinners/ClipLoader";
 
 import {
   parseAsIsoDateTime,
@@ -47,9 +33,7 @@ import {
   useQueryState,
 } from "next-usequerystate";
 
-import ClipLoader from "react-spinners/ClipLoader";
-
-export default function Home() {
+export default function HomePage() {
   const [course, setCourse] = useQueryState(
     "course",
     parseAsStringLiteral(["CSE", "DA"] as const).withDefault("CSE"),
@@ -67,44 +51,13 @@ export default function Home() {
   );
 
   const date = dayjs(calendarDate).format("MMMM DD, YYYY");
-  const apiUtils = api.useUtils();
-  const { data: allSchedules, isLoading } =
-    api.schedule.getAllSchedules.useQuery();
-  const scheduleData = allSchedules?.filter((data) =>
-    dayjs(data.date).isSame(dayjs(date)),
-  );
+  const { data: scheduleData, isLoading } = api.schedule.getSchedule.useQuery({
+    date: date,
+  });
   const data = scheduleData?.filter((data) => data.course === course);
-
-  const { mutateAsync: deleteScheduleAsync, isPending: isDeleting } =
-    api.schedule.deleteSchedule.useMutation({
-      async onSuccess() {
-        await apiUtils.schedule.getSchedule.invalidate();
-        await apiUtils.schedule.getAllSchedules.invalidate();
-      },
-    });
 
   return (
     <>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button
-            variant="secondary"
-            size="icon"
-            className="absolute right-4 top-[5.5rem] ml-auto h-fit w-fit p-2"
-          >
-            <PlusIcon />
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="max-h-[80vh] max-w-[calc(100vw-2rem)] overflow-y-auto sm:max-w-[500px]">
-          <DialogHeader>
-            <DialogTitle>Add New Schedule</DialogTitle>
-          </DialogHeader>
-          <AddScheduleForm />
-        </DialogContent>
-      </Dialog>
-      <h2 className="bg-gradient-to-r from-violet-200 to-pink-200 bg-clip-text py-2 text-center text-5xl font-bold text-transparent md:text-6xl lg:text-7xl">
-        Manage Schedule
-      </h2>
       <div className="my-auto flex flex-col items-center gap-4">
         <h2 className="bg-gradient-to-r from-violet-200 to-pink-200 bg-clip-text py-2 text-center text-5xl font-bold text-transparent md:text-6xl lg:text-7xl">
           {date}
@@ -194,84 +147,12 @@ export default function Home() {
               )}
               <TabsContent value="CSE">
                 <div className="flex flex-col gap-2">
-                  {data?.map((data) => (
-                    <div key={data.id} className="relative">
-                      <DataCard data={data} />
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button
-                            className="absolute right-2 top-2 h-fit w-fit p-2"
-                            size="icon"
-                            variant="destructive"
-                          >
-                            <TrashIcon className="h-4 w-4" />
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="flex flex-col gap-2">
-                          Are you sure you want to delete this schedule?
-                          <Button
-                            variant="destructive"
-                            className="gap-2"
-                            disabled={isDeleting}
-                            onClick={() =>
-                              deleteScheduleAsync({
-                                id: data.id,
-                              })
-                            }
-                          >
-                            <ClipLoader
-                              color={"#ffffff"}
-                              loading={isDeleting}
-                              size={20}
-                              aria-label="Loading"
-                            />{" "}
-                            Confirm
-                          </Button>
-                        </PopoverContent>
-                      </Popover>
-                    </div>
-                  ))}
+                  {data?.map((data) => <DataCard data={data} key={data.id} />)}
                 </div>
               </TabsContent>
               <TabsContent value="DA">
                 <div className="flex flex-col gap-2">
-                  {data?.map((data) => (
-                    <div key={data.id} className="relative">
-                      <DataCard data={data} />
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button
-                            className="absolute right-2 top-2 h-fit w-fit p-2"
-                            size="icon"
-                            variant="destructive"
-                          >
-                            <TrashIcon className="h-4 w-4" />
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="flex flex-col gap-2">
-                          Are you sure you want to delete this schedule?
-                          <Button
-                            variant="destructive"
-                            className="gap-2"
-                            disabled={isDeleting}
-                            onClick={() =>
-                              deleteScheduleAsync({
-                                id: data.id,
-                              })
-                            }
-                          >
-                            <ClipLoader
-                              color={"#ffffff"}
-                              loading={isDeleting}
-                              size={20}
-                              aria-label="Loading"
-                            />{" "}
-                            Confirm
-                          </Button>
-                        </PopoverContent>
-                      </Popover>
-                    </div>
-                  ))}
+                  {data?.map((data) => <DataCard data={data} key={data.id} />)}
                 </div>
               </TabsContent>
             </Tabs>
