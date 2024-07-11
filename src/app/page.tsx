@@ -123,14 +123,14 @@ export default function Home() {
               <TabsContent value="CSE">
                 <div className="flex flex-col gap-2">
                   {scheduleData
-                    ?.filter((data) => data.courses.includes("CSE"))
+                    ?.filter((data) => data.course === "CSE")
                     .map((data) => <DataCard data={data} key={data.id} />)}
                 </div>
               </TabsContent>
               <TabsContent value="DA">
                 <div className="flex flex-col gap-2">
                   {scheduleData
-                    ?.filter((data) => data.courses.includes("DA"))
+                    ?.filter((data) => data.course === "DA")
                     .map((data) => <DataCard data={data} key={data.id} />)}
                 </div>
               </TabsContent>

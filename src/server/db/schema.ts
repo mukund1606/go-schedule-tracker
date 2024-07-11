@@ -2,7 +2,7 @@
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
 import {
-  json,
+  pgEnum,
   pgTableCreator,
   smallserial,
   text,
@@ -36,14 +36,14 @@ export const sessionTable = createTable("session", {
   }).notNull(),
 });
 
-type Course = "CSE" | "DA";
+export const courseEnum = pgEnum("course", ["CSE", "DA"]);
 
 export const scheduleTable = createTable("schedule", {
   id: smallserial("id").primaryKey(),
-  courses: json("courses").$type<Course[]>().notNull().default(["CSE"]),
+  course: courseEnum("course").notNull().default("CSE"),
   subjectName: text("subject_name").notNull(),
+  workToDo: text("duration").notNull(),
   description: text("description").notNull(),
-  duration: text("duration").notNull(),
   date: timestamp("date", {
     withTimezone: false,
     mode: "string",

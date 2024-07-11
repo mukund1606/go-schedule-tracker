@@ -71,7 +71,7 @@ export default function Home() {
             <PlusIcon />
           </Button>
         </DialogTrigger>
-        <DialogContent className="max-w-[calc(100vw-2rem)] sm:max-w-[500px]">
+        <DialogContent className="max-h-[80vh] max-w-[calc(100vw-2rem)] overflow-y-auto sm:max-w-[500px]">
           <DialogHeader>
             <DialogTitle>Add New Schedule</DialogTitle>
           </DialogHeader>
@@ -168,7 +168,7 @@ export default function Home() {
               <TabsContent value="CSE">
                 <div className="flex flex-col gap-2">
                   {scheduleData
-                    ?.filter((data) => data.courses.includes("CSE"))
+                    ?.filter((data) => data.course === "CSE")
                     .map((data) => (
                       <div key={data.id} className="relative">
                         <DataCard data={data} />
@@ -211,7 +211,7 @@ export default function Home() {
               <TabsContent value="DA">
                 <div className="flex flex-col gap-2">
                   {scheduleData
-                    ?.filter((data) => data.courses.includes("DA"))
+                    ?.filter((data) => data.course === "DA")
                     .map((data) => (
                       <div key={data.id}>
                         <DataCard data={data} />

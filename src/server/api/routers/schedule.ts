@@ -92,4 +92,21 @@ export const scheduleRouter = createTRPCRouter({
         });
       }
     }),
+  getSubjects: protectedProcedure.query(async ({ ctx }) => {
+    try {
+      const subjects = await ctx.db
+        .selectDistinct({ subject: scheduleTable.subjectName })
+        .from(scheduleTable);
+      const data = subjects.map((subject) => ({
+        label: subject.subject,
+        value: subject.subject,
+      }));
+      return data;
+    } catch (error) {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Internal server error",
+      });
+    }
+  }),
 });

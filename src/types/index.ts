@@ -9,14 +9,14 @@ export const LoginSchema = z.object({
   }),
 });
 
-export const CourseEnum = z.enum(["CSE", "DA"]);
+export const CourseEnum = z.enum(["CSE", "DA"], {
+  message: "Please select a course",
+});
 
 export const CreateScheduleSchema = z.object({
-  courses: z
-    .array(CourseEnum)
-    .min(1, { message: "Please select at least one course" }),
+  course: CourseEnum,
   subjectName: z.string().min(1, { message: "Please enter a subject name" }),
   description: z.string().min(1, { message: "Please enter a description" }),
-  duration: z.string().min(1, { message: "Please enter a duration" }),
+  workToDo: z.string().min(1, { message: "Please enter a duration" }),
   date: z.string().min(1, { message: "Please enter a date" }),
 });

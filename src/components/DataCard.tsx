@@ -22,9 +22,9 @@ export function DataCard({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <h2 className="text-center text-2xl font-bold">{data.description}</h2>
+        <h2 className="text-center text-2xl font-bold">{data.workToDo}</h2>
         <CardDescription className="text-center">
-          {data.duration}
+          {data.description}
         </CardDescription>
       </CardContent>
     </Card>
