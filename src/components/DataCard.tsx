@@ -1,4 +1,6 @@
 import type { AppRouterOutputTypes } from "@/server/api/root";
+import { ExternalLinkIcon } from "lucide-react";
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -22,7 +24,20 @@ export function DataCard({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <h2 className="text-center text-2xl font-bold">{data.workToDo}</h2>
+        <h2 className="text-center text-2xl font-bold">
+          {data.url ? (
+            <Link
+              href={data.url}
+              target="_blank"
+              className="flex w-full items-start justify-center gap-2 hover:underline"
+            >
+              {data.workToDo}{" "}
+              <ExternalLinkIcon className="h-4 w-4 text-muted-foreground" />
+            </Link>
+          ) : (
+            data.workToDo
+          )}
+        </h2>
         <CardDescription className="text-center">
           {data.description}
         </CardDescription>

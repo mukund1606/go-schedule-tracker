@@ -42,8 +42,9 @@ export const scheduleTable = createTable("schedule", {
   id: smallserial("id").primaryKey(),
   course: courseEnum("course").notNull().default("CSE"),
   subjectName: text("subject_name").notNull(),
-  workToDo: text("duration").notNull(),
-  description: text("description").notNull(),
+  workToDo: text("work_to_do").notNull(),
+  description: text("description"),
+  url: text("url"),
   date: timestamp("date", {
     withTimezone: false,
     mode: "string",

@@ -77,6 +77,7 @@ export default function AddScheduleForm() {
       description: "",
       workToDo: "",
       date: dayjs(calendarDate).format("MMMM DD, YYYY"),
+      url: undefined,
     },
   });
   useEffect(() => {
@@ -226,6 +227,19 @@ export default function AddScheduleForm() {
               <FormLabel>Work to do</FormLabel>
               <FormControl>
                 <Input placeholder="Work to do" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="url"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>URL (Optional)</FormLabel>
+              <FormControl>
+                <Input placeholder="URL" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

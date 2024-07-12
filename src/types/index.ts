@@ -19,4 +19,5 @@ export const CreateScheduleSchema = z.object({
   description: z.string().min(1, { message: "Please enter a description" }),
   workToDo: z.string().min(1, { message: "Please enter a duration" }),
   date: z.string().min(1, { message: "Please enter a date" }),
+  url: z.string().url({ message: "Please enter a valid URL" }),
 });
