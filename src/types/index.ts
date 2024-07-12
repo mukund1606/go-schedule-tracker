@@ -16,8 +16,8 @@ export const CourseEnum = z.enum(["CSE", "DA"], {
 export const CreateScheduleSchema = z.object({
   course: CourseEnum,
   subjectName: z.string().min(1, { message: "Please enter a subject name" }),
-  description: z.string().min(1, { message: "Please enter a description" }),
+  description: z.string().optional(),
   workToDo: z.string().min(1, { message: "Please enter a duration" }),
   date: z.string().min(1, { message: "Please enter a date" }),
-  url: z.string().url({ message: "Please enter a valid URL" }),
+  url: z.string().url({ message: "Please enter a valid URL" }).optional(),
 });
